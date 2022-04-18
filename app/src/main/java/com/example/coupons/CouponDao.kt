@@ -7,9 +7,9 @@ import androidx.room.Query
 @Dao
 interface CouponDao {
 
-    @Query("SELECT * FROM CouponEntity WHERE code = code")
+    @Query("SELECT * FROM CouponEntity WHERE code = :code")
     suspend fun consultCouponByCode(code: String): CouponEntity?
 
     @Insert
-    suspend fun addCoupon(couponEntity: CouponEntity): Long
+    suspend fun addCoupon(couponEntity: CouponEntity): Long?
 }

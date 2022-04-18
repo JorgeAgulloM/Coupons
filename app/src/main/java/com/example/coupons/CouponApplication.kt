@@ -5,7 +5,7 @@ import androidx.room.Room
 
 class CouponApplication: Application() {
     companion object{
-        lateinit var dataBase: CouponDataBase
+        lateinit var dataBase: CouponDatabase
     }
 
     override fun onCreate() {
@@ -13,8 +13,8 @@ class CouponApplication: Application() {
 
         dataBase = Room.databaseBuilder(
             this,
-            CouponDataBase::class.java,
-            "CouponDataBase")
+            CouponDatabase::class.java,
+            "CouponDatabase")
             .build()
 
     }

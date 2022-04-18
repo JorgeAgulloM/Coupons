@@ -6,8 +6,10 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "CouponEntity",
     indices = [
-        Index(value = ["code"],
-            unique = true)
+        Index(
+            value = ["code"],
+            unique = true
+        )
     ]
 )
 data class CouponEntity (
