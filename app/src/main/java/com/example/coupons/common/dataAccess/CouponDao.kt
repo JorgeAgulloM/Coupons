@@ -1,8 +1,9 @@
-package com.example.coupons
+package com.example.coupons.common.dataAccess
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import com.example.coupons.common.entities.CouponEntity
 
 @Dao
 interface CouponDao {
