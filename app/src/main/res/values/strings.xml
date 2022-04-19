@@ -8,4 +8,5 @@
     <string name="error_unique_code">Error desconocido al crear cupón.</string>
     <string name="error_invalid_length">El cupón debe tener entre 5 y 10 caracteres.</string>
     <string name="error_unknow">Error desconocido al crear cupón</string>
+    <string name="main_save_success">Cupón creado</string>
 </resources>
