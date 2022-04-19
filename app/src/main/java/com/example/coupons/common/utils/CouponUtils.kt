@@ -12,7 +12,7 @@ fun validateTxtCode(code: String): Boolean {
 fun getMsgErrorByCode(errorCode: String?): Int = when(errorCode) {
     Constants.ERROR_EXIST -> R.string.error_unique_code
     Constants.ERROR_LENGTH -> R.string.error_invalid_length
-    else -> R.string.error_unknow
+    else -> R.string.error_unknown
 }
 
 fun hideKeyboard(context: Context, view: View) {
