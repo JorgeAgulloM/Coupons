@@ -1,4 +1,4 @@
-package com.example.coupons.mainModule.view
+package com.example.coupons.mainModule.viewModel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,7 +13,7 @@ import java.lang.Exception
 class MainViewModel: ViewModel() {
     private val repository = MainRepository()
 
-    private val coupon = MutableLiveData<CouponEntity>()
+    val coupon = MutableLiveData(CouponEntity())
 
     private val hideKeyBoard = MutableLiveData<Boolean>()
     fun isHideKeyBoard() = hideKeyBoard
@@ -26,6 +26,10 @@ class MainViewModel: ViewModel() {
             viewModelScope.launch {
                 hideKeyBoard.value = true
                 coupon.value = repository.consultCouponByCode(code)
+                    ?: CouponEntity(
+                        code = code,
+                        isActive = false
+                    )
             }
         }
 
@@ -36,6 +40,7 @@ class MainViewModel: ViewModel() {
             coupon.value?.let { couponEntity ->
                 hideKeyBoard.value = true
                 try {
+                    couponEntity.isActive = true
                     repository.saveCoupon(couponEntity)
                     consultCouponByCode()
                     snackBarMsg.value = R.string.main_save_success
