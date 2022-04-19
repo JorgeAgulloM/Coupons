@@ -13,27 +13,37 @@ import java.lang.Exception
 class MainViewModel: ViewModel() {
     private val repository = MainRepository()
 
-    private val result = MutableLiveData<CouponEntity>()
-    fun getresult() = result
+    private val coupon = MutableLiveData<CouponEntity>()
+
+    private val hideKeyBoard = MutableLiveData<Boolean>()
+    fun isHideKeyBoard() = hideKeyBoard
 
     private val snackBarMsg = MutableLiveData<Int>()
     fun getSnackBarMsg() = snackBarMsg
 
-    fun consultCouponByCode(code: String) {
-        viewModelScope.launch {
-            result.value = repository.consultCouponByCode(code)
+    fun consultCouponByCode() {
+        coupon.value?.code?.let { code ->
+            viewModelScope.launch {
+                hideKeyBoard.value = true
+                coupon.value = repository.consultCouponByCode(code)
+            }
         }
+
     }
 
-    fun saveCoupon(couponEntity: CouponEntity){
+    fun saveCoupon(){
         viewModelScope.launch {
-            try {
-                repository.saveCoupon(couponEntity)
-                consultCouponByCode(couponEntity.code)
-                snackBarMsg.value = R.string.main_save_success
-            } catch (e: Exception) {
-                snackBarMsg.value = getMsgErrorByCode(e.message)
+            coupon.value?.let { couponEntity ->
+                hideKeyBoard.value = true
+                try {
+                    repository.saveCoupon(couponEntity)
+                    consultCouponByCode()
+                    snackBarMsg.value = R.string.main_save_success
+                } catch (e: Exception) {
+                    snackBarMsg.value = getMsgErrorByCode(e.message)
+                }
             }
+
         }
     }
 }
